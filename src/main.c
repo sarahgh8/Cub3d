@@ -1,35 +1,37 @@
 #include "../include/cub3d.h"
 
-int destroy_everything(t_prep *p)
+int check_file_name(t_map_file c)
 {
-    mlx_destroy_image(p->con, p->img);
-    mlx_destroy_window(p->con, p->win);
-    mlx_destroy_display(p->con);
-    free(p->con);
-    exit(0);
-}
+    int i;
 
-int mouse_interactions(int keycode, t_prep *p)
-{
-    if(keycode == 65307)
-        destroy_everything(p);
+    i = 0;
+    while(c.file_name[i])
+    {
+        if(c.file_name[i] && c.file_name[i + 1] == '.')
+        {
+            i += 2;
+            if(!ft_strncmp(&c.file_name[i], "cub", 3) && !c.dir_texture[i + 1])
+                return 1;
+        }
+        i++;
+    }
     return 0;
 }
 
-
-int main(int argc __attribute__((unused)), char **argv __attribute__((unused)))
+void init_map_file(t_map_file *c, char *file_name)
 {
-    t_prep p;
-    p.con = mlx_init();
-    if(!p.con)
-        destroy_everything(&p);
-    p.win = mlx_new_window(p.con, 500, 500, "test");
-    p.img = mlx_new_image(p.con, 500, 500);
-    mlx_hook(p.win, 2, 1L << 0, mouse_interactions, &p);
-    mlx_hook(p.win, 17, 0, destroy_everything, &p);
-    
-    mlx_loop(p.con);
-    (void)p.win;
-    (void)p.img;
+    c->file_name = file_name;
+}
+
+int main(int argc, char **argv)
+{
+    if(argc != 2)
+        return 1;
+    t_map_file c;
+    init_map_file(&c, argv[1]);
+    if(check_file_name(c))
+        printf("success\n");
+    else
+        printf("error\n");    
     return 0;
 }

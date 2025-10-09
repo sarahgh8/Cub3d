@@ -6,7 +6,7 @@
 /*   By: sghunmin <sghunmin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 04:41:52 by wshannak          #+#    #+#             */
-/*   Updated: 2025/06/18 19:08:18 by sghunmin         ###   ########.fr       */
+/*   Updated: 2025/10/01 12:29:17 by sghunmin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <stdlib.h>
 # include <unistd.h>
+#include "get_next_line.h"
 
 typedef struct s_list
 {
