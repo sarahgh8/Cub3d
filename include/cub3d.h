@@ -26,19 +26,15 @@ typedef struct s_prep
     void *img;
 }t_prep;
 
-typedef struct s_map_file
+typedef struct s_file_content
 {
-    char **dir_texture;
-    char **fc_colors;
-    char **map_content;
-    char *file_name;
-}   t_map_file;
+    t_category category;
+    char *content;
+}   t_file_content;
 
 void print_error(t_error type);
-int check_args(int argc, char **argv);
-int check_map_content(char *file_name);
-void init_map_file(t_map_file *content, char *file_name);
-void parse_texture(char *line, t_map_file *c);
-void parse_file(t_map_file *c);
+int check_argv(int argc, char **argv);
+int check_file_content(char *file_name, t_file_content *data);
+
 
 #endif

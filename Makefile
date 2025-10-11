@@ -12,7 +12,7 @@ CC = cc
 LFLAGS = -LLibft -L../minilibx-linux -lft -lm -lmlx -lX11 -lXext
 CFLAGS = -Wall -Wextra -Werror
 SRC_DIR = src
-SRC = main.c
+SRC = main.c checkers.c
 OBJ_DIR = obj
 OBJ = $(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
 LIBFT = libft.a
