@@ -6,35 +6,15 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-typedef enum e_error
+typedef struct s_file_info
 {
-    ARG_ERR,
-    CONT_ERR
-}   t_error;
+    char *filename;
+    char **content;
+}   t_file_info;
 
-typedef enum e_category
-{
-    TEXTURE,
-    FC_COLORS,
-    MAP
-}   t_category;
-
-typedef struct s_prep
-{
-    void *con;
-    void *win;
-    void *img;
-}t_prep;
-
-typedef struct s_file_content
-{
-    t_category category;
-    char *content;
-}   t_file_content;
-
-void print_error(t_error type);
-int check_argv(int argc, char **argv);
-int check_file_content(char *file_name, t_file_content *data);
+int check_filename_format(char *filename);
+int check_arguments(int argc, char **argv);
+int start_parse_file_content(char **argv, int argc, t_file_info *file_info);
 
 
 #endif
