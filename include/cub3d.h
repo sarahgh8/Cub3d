@@ -16,7 +16,8 @@ typedef struct s_file_info
 
 int check_filename_format(char *filename);
 int check_arguments(int argc, char **argv);
-int start_parse_file_content(char **argv, int argc, t_file_info *file_info);
+int start_parse_file_content(char **argv, t_file_info *file_info);
+void clean_file_info(t_file_info *file_info);
 
 
 #endif
