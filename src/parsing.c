@@ -33,32 +33,25 @@ static int how_many_lines(char *filename)
 
 int start_parse_file_content(char **argv, int argc, t_file_info *file_info)
 {
-    int i;
-    int count_lines;
-    int bytes_read;
     char *line;
+    int count_lines;
 
-    i = 0;
-    count_lines = 0;
-    bytes_read = -1;
-    if (!file_info)
-        return 1;
+    count_lines = how_many_lines(argv[1]);
     file_info->filename = argv[1];
-
-    count_lines = how_many_lines(file_info->filename);
     file_info->content = malloc(sizeof(char *) * (count_lines + 1));
-    int fd = open(file_info->filename, O_RDONLY);
     if (!file_info->content)
         return 1;
-    while((line = get_next_line(fd)))
+    int fd = open(file_info->filename, O_RDONLY);
+    if (fd < 0)
+        return 1;
+    int i = 0;
+    while ((line = get_next_line(fd)))
     {
         file_info->content[i] = line;
-        printf("%s", file_info->content[i]);
-        free(line);
         i++;
     }
     file_info->content[i] = NULL;
     close(fd);
     (void)argc;
-    return 0;
+    return count_lines;
 }
