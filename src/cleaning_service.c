@@ -17,3 +17,22 @@ void clean_file_info(t_file_info *file_info)
         free(file_info->content);
     }
 }
+
+void clean_map_data(t_map_data *map_data)
+{
+    if (map_data->north)
+        free(map_data->north);
+    if (map_data->south)
+        free(map_data->south);
+    if (map_data->east)
+        free(map_data->east);
+    if (map_data->west)
+        free(map_data->west);
+    if (map_data->floor)
+        free(map_data->floor);
+    if (map_data->ceiling)
+        free(map_data->ceiling);
+    map_data->map = NULL;
+    if (map_data->map)
+        ft_2d_free(map_data->map);
+}

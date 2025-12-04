@@ -14,10 +14,35 @@ typedef struct s_file_info
     char **content;
 }   t_file_info;
 
+typedef struct s_map_data
+{
+    char *north;
+    char *south;
+    char *east;
+    char *west;
+    char *floor;
+    char *ceiling;
+    char **map;
+} t_map_data;
+
+typedef struct s_map_flags
+{
+    int north;
+    int south;
+    int east;
+    int west;
+    int floor;
+    int ceiling;
+} t_map_flags;
+
 int check_filename_format(char *filename);
 int check_arguments(int argc, char **argv);
-int start_parse_file_content(char **argv, t_file_info *file_info);
+int start_extract_file_content(char **argv, t_file_info *file_info);
 void clean_file_info(t_file_info *file_info);
-
+void ft_2d_free(char **arr);
+void start_parse_file_content(t_file_info *file_info, t_map_data *map_data, t_map_flags *map_flags);
+int init_flags(t_map_flags *map_flags);
+void clean_map_data(t_map_data *map_data);
+int init_flags(t_map_flags *map_flags);
 
 #endif

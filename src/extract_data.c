@@ -1,5 +1,20 @@
 #include "../include/cub3d.h"
 
+int is_map_content(char *map_line)
+{
+    int i;
+
+    i = 0;
+    while(map_line[i])
+    {
+        if(map_line[i] != '1' && map_line[i] != '0' && map_line[i] != ' '
+            && map_line[i] != '\t')
+            return 0;
+        i++;
+    }
+    return 1;
+}
+
 /**
  * @brief Checks if a line consists entirely of whitespace characters.
  * @param line The line to check.
@@ -57,12 +72,16 @@ static int move_content(t_file_info *file_info)
     int i = 0;
     while ((line = get_next_line(fd)))
     {
+        line[ft_strlen(line) - 1] = '\0';
         if(all_space(line))
         {
             free(line);
             continue;
         }
-        file_info->content[i] = ft_strdup(line);
+        else if(is_map_content(line))
+            file_info->content[i] = ft_strdup(line);
+        else
+            file_info->content[i] = ft_strtrim(line, " ");
         free(line);
         i++;
     }
@@ -77,10 +96,13 @@ static int move_content(t_file_info *file_info)
  * @param file_info Pointer to the t_file_info structure to populate.
  * @return 0 on success, 1 on failure.
  */
-int start_parse_file_content(char **argv, t_file_info *file_info)
+int start_extract_file_content(char **argv, t_file_info *file_info)
 {
     int count_lines;
+    t_map_data map_data;
+    t_map_flags map_flags;
 
+    init_flags(&map_flags);
     count_lines = how_many_lines(argv[1]);
     file_info->filename = argv[1];
     file_info->content = malloc(sizeof(char *) * (count_lines + 1));
@@ -88,5 +110,13 @@ int start_parse_file_content(char **argv, t_file_info *file_info)
         return 1;
     if (move_content(file_info))
         return 1;
+    start_parse_file_content(file_info, &map_data, &map_flags);
+    printf("North Texture: %s\n", map_data.north);
+    printf("South Texture: %s\n", map_data.south);
+    printf("West Texture: %s\n", map_data.west);
+    printf("East Texture: %s\n", map_data.east);
+    printf("Floor Color: %s\n", map_data.floor);
+    printf("Ceiling Color: %s\n", map_data.ceiling);
+    clean_map_data(&map_data);
     return 0;
 }
