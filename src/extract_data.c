@@ -1,5 +1,10 @@
 #include "../include/cub3d.h"
 
+/**
+ * @brief Checks if a line contains valid map content characters.
+ * @param map_line The line to check.
+ * @return 1 if the line contains only map content characters, 0 otherwise.
+ */
 int is_map_content(char *map_line)
 {
     int i;
@@ -8,7 +13,8 @@ int is_map_content(char *map_line)
     while(map_line[i])
     {
         if(map_line[i] != '1' && map_line[i] != '0' && map_line[i] != ' '
-            && map_line[i] != '\t')
+            && map_line[i] != '\t' && map_line[i] != 'N' && map_line[i] != 'S'
+            && map_line[i] != 'E' && map_line[i] != 'W')
             return 0;
         i++;
     }
@@ -110,13 +116,12 @@ int start_extract_file_content(char **argv, t_file_info *file_info)
         return 1;
     if (move_content(file_info))
         return 1;
-    start_parse_file_content(file_info, &map_data, &map_flags);
-    printf("North Texture: %s\n", map_data.north);
-    printf("South Texture: %s\n", map_data.south);
-    printf("West Texture: %s\n", map_data.west);
-    printf("East Texture: %s\n", map_data.east);
-    printf("Floor Color: %s\n", map_data.floor);
-    printf("Ceiling Color: %s\n", map_data.ceiling);
+    if (start_parse_file_content(file_info, &map_data, &map_flags))
+    {
+        clean_file_info(file_info);
+        return 1;
+    }
+    printf("%d %d\n", map_data.player_pos[0], map_data.player_pos[1]);
     clean_map_data(&map_data);
     return 0;
 }

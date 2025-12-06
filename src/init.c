@@ -1,5 +1,10 @@
 #include "../include/cub3d.h"
 
+/** 
+ * @brief Initializes the map flags to zero.
+ * @param map_flags Pointer to the t_map_flags structure to initialize.
+ * @return 0 on success.
+ */
 int init_flags(t_map_flags *map_flags)
 {
     map_flags->north = 0;

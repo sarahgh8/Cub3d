@@ -18,6 +18,10 @@ void clean_file_info(t_file_info *file_info)
     }
 }
 
+/** 
+ * @brief Cleans up the memory allocated for the t_map_data structure.
+ * @param map_data Pointer to the t_map_data structure to clean.
+ */
 void clean_map_data(t_map_data *map_data)
 {
     if (map_data->north)
@@ -32,7 +36,6 @@ void clean_map_data(t_map_data *map_data)
         free(map_data->floor);
     if (map_data->ceiling)
         free(map_data->ceiling);
-    map_data->map = NULL;
     if (map_data->map)
         ft_2d_free(map_data->map);
 }

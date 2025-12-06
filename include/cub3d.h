@@ -23,6 +23,7 @@ typedef struct s_map_data
     char *floor;
     char *ceiling;
     char **map;
+    int *player_pos;
 } t_map_data;
 
 typedef struct s_map_flags
@@ -40,9 +41,11 @@ int check_arguments(int argc, char **argv);
 int start_extract_file_content(char **argv, t_file_info *file_info);
 void clean_file_info(t_file_info *file_info);
 void ft_2d_free(char **arr);
-void start_parse_file_content(t_file_info *file_info, t_map_data *map_data, t_map_flags *map_flags);
+int start_parse_file_content(t_file_info *file_info, t_map_data *map_data, t_map_flags *map_flags);
 int init_flags(t_map_flags *map_flags);
 void clean_map_data(t_map_data *map_data);
 int init_flags(t_map_flags *map_flags);
+int validate_map_content(t_file_info *file_info, t_map_data *map_data);
+int is_map_content(char *map_line);
 
 #endif

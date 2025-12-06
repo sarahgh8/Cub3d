@@ -19,7 +19,11 @@ int main(int argc, char **argv)
     if(check_arguments(argc, argv))
         return 1;
     if(start_extract_file_content(argv, &file_info))
+    {
+        printf("Error extracting file content\n");
         return 1;
+    }
+    printf("File content extracted successfully\n");
     clean_file_info(&file_info);
     return 0;
 }
