@@ -47,5 +47,7 @@ void clean_map_data(t_map_data *map_data);
 int init_flags(t_map_flags *map_flags);
 int validate_map_content(t_file_info *file_info, t_map_data *map_data);
 int is_map_content(char *map_line);
+int count_2d_array(char **arr);
+int validate_textures_colors(t_map_data *map_data);
 
 #endif

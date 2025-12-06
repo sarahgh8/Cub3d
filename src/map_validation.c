@@ -64,9 +64,11 @@ int *find_player_position(char **map)
 {
     int i;
     int j;
-    int *player_pos; 
+    int *player_pos;
+    int count;
     
     i = 0;
+    count = 0;
     player_pos = malloc(sizeof(int) * 2);
     if(!player_pos)
         return NULL;
@@ -79,13 +81,23 @@ int *find_player_position(char **map)
         {
             if(map[i][j] == 'N' || map[i][j] == 'S' || map[i][j] == 'E' || map[i][j] == 'W')
             {
+                count++;
+                if (count > 1)
+                {
+                    free(player_pos);
+                    return NULL;
+                }
                 player_pos[0] = i;
                 player_pos[1] = j;
-                return player_pos;
             }
             j++;
         }
         i++;
+    }
+    if (count != 1)
+    {
+        free(player_pos);
+        return NULL;
     }
     return player_pos;
 }
@@ -166,10 +178,12 @@ int is_map_closed(t_map_data *map_data)
  */
 int validate_map_content(t_file_info *file_info, t_map_data *map_data)
 {
+    int *player_pos;
+
     if(parse_map_content(file_info, map_data))
         return 1;
-    int *player_pos = find_player_position(map_data->map);
-    if(player_pos[0] == -1 && player_pos[1] == -1)
+    player_pos = find_player_position(map_data->map);
+    if(!player_pos)
         return 1;
     map_data->player_pos = player_pos;
     if(is_map_closed(map_data))

@@ -121,7 +121,6 @@ int start_extract_file_content(char **argv, t_file_info *file_info)
         clean_file_info(file_info);
         return 1;
     }
-    printf("%d %d\n", map_data.player_pos[0], map_data.player_pos[1]);
     clean_map_data(&map_data);
     return 0;
 }

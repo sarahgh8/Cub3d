@@ -17,7 +17,10 @@ int main(int argc, char **argv)
 {
     t_file_info file_info;
     if(check_arguments(argc, argv))
+    {
+        printf("Invalid arguments\n");
         return 1;
+    }
     if(start_extract_file_content(argv, &file_info))
     {
         printf("Error extracting file content\n");
